@@ -106,7 +106,7 @@ public class Car {
 
     @Override
     public String toString(){
-    return String.format("%s;%f;%d", this.getMakeModel(),this.getEngineSizeL(),this.getProdYear());
+    return String.format("%s;%s;%d", this.getMakeModel(),String.format("%.1f", this.getEngineSizeL()),this.getProdYear());
     }
    
 }

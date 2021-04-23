@@ -108,6 +108,22 @@ public class OwnArrayList {
     } 
     
     
+    //public int[] getSlice(int startIdx, int length) { ... } // may throw IndexOutOfBoundsException
+    public int[] getSlice(int startIdx, int length) {
+        if (startIdx>=size ||startIdx + length>=size ) {
+            throw new IndexOutOfBoundsException();
+        }else{
+            int[]slicedData = new int[length];
+            int curIndex=0;
+            for (int i = startIdx; i < startIdx+length; i++) {
+                slicedData[curIndex] = data[i];
+                curIndex++;
+            }
+            return slicedData;
+        }
+    }
+    
+    
      //@Override public String toString() { ... } // returns String similar to: [3, 5, 6, -23]
     @Override
     public String toString() {    

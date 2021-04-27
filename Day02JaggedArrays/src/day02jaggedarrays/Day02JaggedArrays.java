@@ -63,36 +63,47 @@ public class Day02JaggedArrays {
     private static int[] sumByColumn(int[][] arr) {
         int maxColCount = maxColumnCount(arr);
         int[] colSumArr = new int[maxColCount];
-
-        for (int i = 0; i < maxColCount; i++) {
-            int colSum = 0;
-
-            for (int j = 0; j < arr.length; j++) {
-                try {
-                    if (arr[j][i] != 0) {
-                        colSum += arr[j][i];
-                    }
-                } catch (Exception e) {
-                    continue;
-
-                }
+        
+        for (int[] arr1 : arr) {
+            for (int j = 0; j < arr1.length; j++) {
+                colSumArr[j] += arr1[j];
             }
-
-            colSumArr[i] = colSum;
-        }
+        }     
+        
+//        //original codes
+//        for (int i = 0; i < maxColCount; i++) {
+//            int colSum = 0;
+//
+//            for (int j = 0; j < arr.length; j++) {
+//                try {
+//                    if (arr[j][i] != 0) {
+//                        colSum += arr[j][i];
+//                    }
+//                } catch (Exception e) {
+//                    continue;
+//
+//                }
+//            }
+//
+//            colSumArr[i] = colSum;
+//        }
         return colSumArr;
     }
 
     //use this function for easy count how many column per row for JaggedArray
     public static int maxColumnCount(int[][] arr) {
         int maxColCount = 0;
-        int[] colCountArr = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
-            colCountArr[i] = arr[i].length;
-            if (arr[i].length > maxColCount) {
-                maxColCount = arr[i].length;
-            }
+            maxColCount = maxColCount<arr[i].length?arr[i].length:maxColCount;
         }
+        //original codes:
+//        int[] colCountArr = new int[arr.length];
+//        for (int i = 0; i < arr.length; i++) {
+//            colCountArr[i] = arr[i].length;
+//            if (arr[i].length > maxColCount) {
+//                maxColCount = arr[i].length;
+//            }
+//        }
 
         return maxColCount;
     }
@@ -116,11 +127,20 @@ public class Day02JaggedArrays {
     //use below funcitons for calculation cross sum
     static int getIfExists(int[][] arr, int row, int col) {
         // If exists, return the element, otherwise return 0
-        try {
-            return arr[row][col];
-        } catch (IndexOutOfBoundsException e) {
+        if (row>=arr.length||row<0) {
             return 0;
         }
+        if (col>=arr[row].length||col<0) {
+            return 0;
+        }
+        return arr[row][col];
+        
+        //original code, it works but it use frequently cause exception as a condition, which is not the purpose of exception handling
+//        try {
+//            return arr[row][col];
+//        } catch (IndexOutOfBoundsException e) {
+//            return 0;
+//        }
     }
 
     static int sumOfCross(int[][] arr, int row, int col) {
@@ -128,7 +148,7 @@ public class Day02JaggedArrays {
         // plus (if they exist) element above, below, to the left and right of it
         try {
             return getIfExists(arr, row, col)
-                    + getIfExists(arr, row - 1, col - 1)
+                    + getIfExists(arr, row - 1, col)
                     + getIfExists(arr, row, col - 1)
                     + getIfExists(arr, row + 1, col)
                     + getIfExists(arr, row, col + 1);

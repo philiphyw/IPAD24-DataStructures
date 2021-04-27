@@ -29,7 +29,14 @@ public class Day03LinkedListArray {
         for (int i = 0; i < ls.getSize(); i++) {
             System.out.println(ls.get(i));
         }
-
+        
+        
+        System.out.println("-----------Delete by Index - 1: delete arr[arr.getSize()-1]---------------");
+        ls.deleteByIndex(ls.getSize()-1);
+                for (int i = 0; i < ls.getSize(); i++) {
+            System.out.println(ls.get(i));
+        }
+        
         System.out.println("-----------Delete by value - 1: delete This is the first string---------------");
 
         ls.deleteByValue("This is the first string");
@@ -54,7 +61,7 @@ public class Day03LinkedListArray {
 
         System.out.println("-----------Delete by value - 5 delete the tail:This is originally the third string --------------");
 
-        ls.deleteByValue("This is originally the third string");
+        System.out.println(ls.deleteByValue("This is originally the third string"));
 
         for (int i = 0; i < ls.getSize(); i++) {
             System.out.println(ls.get(i));

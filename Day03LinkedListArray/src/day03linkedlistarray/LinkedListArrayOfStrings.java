@@ -28,7 +28,7 @@ public class LinkedListArrayOfStrings {
     public void add(String value) {
         Container newContainer = new Container();
         newContainer.value = value;
-        newContainer.next = null;
+//        newContainer.next = null;
         //Check if current array is empty
         if (this.size == 0) {
             this.start = newContainer;
@@ -42,14 +42,18 @@ public class LinkedListArrayOfStrings {
     }
 
     public String get(int index) {
-        if (index < this.size || index >= 0) {
+        if (index < this.size && index >= 0) {
+            if (index == 0) {
+                return this.start.value;
+            }
+            if (index == this.size - 1) {
+                return this.end.value;
+            }
             int curIndex = 0;
             Container curContainer = this.start;
-            if (index > 0) {
-                while (curIndex < index) {
-                    curContainer = curContainer.next;
-                    curIndex++;
-                }
+            while (curIndex < index) {
+                curContainer = curContainer.next;
+                curIndex++;
             }
             return curContainer.value;
 
@@ -85,35 +89,53 @@ public class LinkedListArrayOfStrings {
         }
     }
 
+    public void deleteByIndex(int index) {
+        if (index < 0 || index > this.size - 1) {
+            throw new IndexOutOfBoundsException();
+        }
+        //delete the start container
+        if (index == 0) {
+            this.start = this.start.next;
+        } else {
+            Container curContainer = this.start;
+            for (int i = 0; i < index - 1; i++) {
+                curContainer = curContainer.next;
+            }
+            curContainer.next = curContainer.next == null ? null : curContainer.next.next;
+            if (index == this.size - 1) {//delte the end container
+                this.end = curContainer;
+            }
+        }
+        this.size--;
+    }
+
     public boolean deleteByValue(String value) {// delete first value found
+        //this.size ==0;
         if (this.size == 0) {
             return false;
-        } else if (this.size == 1) {
-            if (this.start.value.equals(value)) {
-                this.start = null;
-                this.end = null;
-                this.size = 0;
-                return true;
-            }
-            return false;
-        } else if (this.size > 1) {
-            int curIndex = 0;
+        }
+        //this.size == 1 and match the delete condition;
+        if (this.size == 1 && this.start.value.equals(value)) {
+            this.size = 0;
+            this.start = null;
+            return true;
+        }
+        //this.size >1, find which container.next's value == value;
+        if (this.size > 1) {
             Container curContainer = this.start;
-            for (int i = 0; i < this.size; i++) {
+            for (int i = 0; i < this.size - 1; i++) {
                 if (curContainer.next.value.equals(value)) {
-                    if (curContainer.next.next != null) { // the to-be-deleted container is NOT the tail
-                        curContainer.next = curContainer.next.next; //point to-be-deleted container.prev.next to   to-be-deleted container.next
-                    } else {
-                        curContainer.next = null;// the to-be-deleted container is  the tail
+                    curContainer.next = curContainer.next.next;
+                    //check if the deleted item is the end
+                    if (curContainer.next == null) {
                         this.end = curContainer;
                     }
                     this.size--;
                     return true;
-
                 }
-                curContainer = curContainer.next;
             }
         }
+
         return false;
     }
 

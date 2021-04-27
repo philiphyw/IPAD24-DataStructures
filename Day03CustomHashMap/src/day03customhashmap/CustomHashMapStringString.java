@@ -3,12 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package day02jaggedarrays;
+package day03customhashmap;
 
 /**
  *
  * @author phili
  */
-public class ArrayRowValue {
-   
+public class CustomHashMapStringString {
+    	private class Container {
+		Container next;
+		String key;
+		String value;
+	}
+        
+        
 }

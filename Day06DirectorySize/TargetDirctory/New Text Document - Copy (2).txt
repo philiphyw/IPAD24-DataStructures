@@ -1,0 +1,294 @@
+Logo
+Search...
+Java Tutorials
+Java 16 (Latest)
+Java 15
+Java 
+
+You selected the directory: C:\Users\Public\Pictures
+3. setMultiSelectionEnabled(Boolean) – Allow multiple selections
+An example where multiple selection is enabled. The user picks multiple files and the program prints the names:
+
+FileChooser3.java
+
+package com.mkyong.jfileChooser;
+
+import java.io.File;
+import java.util.Arrays;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileSystemView;
+
+public class FileChooser3 {
+
+    public static void main(String[] args) {
+
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        jfc.setDialogTitle("Multiple file and directory selection:");
+        jfc.setMultiSelectionEnabled(true);
+        jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+        int returnValue = jfc.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File[] files = jfc.getSelectedFiles();
+            System.out.println("Directories found\n");
+            Arrays.asList(files).forEach(x -> {
+                if (x.isDirectory()) {
+                    System.out.println(x.getName());
+                }
+            });
+            System.out.println("\n- - - - - - - - - - -\n");
+            System.out.println("Files Found\n");
+            Arrays.asList(files).forEach(x -> {
+                if (x.isFile()) {
+                    System.out.println(x.getName());
+                }
+            });
+        }
+
+    }
+
+}
+Output:
+
+swing-jfilechooser-4d
+
+Directories found
+
+Camera Roll
+Saved Pictures
+
+- - - - - - - - - - -
+
+Files Found
+
+autumn_rhythm-pollock1.jpg
+kuNUfO.jpg
+mona.jpg
+4. Filters – Limit the set of files shown to the user
+It’s always handy to limit user selection to the program’s needs. If for example your program requires png and gif images, it would be good practice to limit the user’s selection to only that. The example below shows how to achieve it using a custom FileNameExtensionFilter:
+
+FileChooser4.java
+
+package com.mkyong.jfileChooser;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
+
+public class FileChooser4 {
+
+    public static void main(String[] args) {
+
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        jfc.setDialogTitle("Select an image");
+        jfc.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG and GIF images", "png", "gif");
+        jfc.addChoosableFileFilter(filter);
+
+        int returnValue = jfc.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            System.out.println(jfc.getSelectedFile().getPath());
+        }
+
+    }
+
+}
+
+Output:
+
+swing-jfilechooser-4e
+As you can see the user is not allowed to pick anything else. The directory shown above contains other types of images too but only gif and png are shown to the user.
+
+The directory looks like this:
+
+swing-jfilechooser-4f
+5. Use of showDialog()
+If you need to customize the approve button, then use the showDialog() method. Here’s an example of how to use it:
+
+FileChooser5.java
+
+package com.mkyong.inputDialog;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileSystemView;
+
+public class FileChooser5 {
+
+    public static void main(String[] args) {
+
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        jfc.setDialogTitle("Custom button");
+
+        int returnValue = jfc.showDialog(null, "A button!");
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            System.out.println(jfc.getSelectedFile().getPath());
+        }
+
+    }
+
+}
+Output:
+
+swing-jfilechooser-4g
+Note
+There is a method in JFileChooser called setApproveButtonText(String). The problem with this method is that it works only for showOpenDialog(). It is recommended to use the showDialog() as a replacement for showSaveDialog() when a custom button is needed.
+You should also check the simplest and most common-used methods to write and read files:
+
+How to write a file in Java – BufferedWriter
+How to read a file in Java – BufferedReader
+References
+JFileChooser – Java 8 API
+FileSystemView – Java 8 API
+FileNameExtension – Java 8 API
+Tags : JFileChooser swing
+author image
+Marilena
+Marilena Panagiotidou is a senior at University of the Aegean, in the department of Information and Communication Systems Engineering. She is passionate about programming in a wide range of languages. You can contact her at an3liram@gmail.com or through her LinkedIn.
+guest
+3000
+
+
+{}
+15 COMMENTS
+Most Voted
+Tom
+Tom
+10 months ago
+This was very helpful. Thanks!
+
+2
+ Reply
+Kim
+Kim
+3 years ago
+thanks a lot
+
+2
+ Reply
+Paul
+Paul
+3 years ago
+Really a good Post, Thank you very much, it has been very useful to me!
+
+1
+ Reply
+anurag
+anurag
+3 years ago
+thank you so much for this nice post.
+it is very helpful.
+
+1
+ Reply
+rohith
+rohith
+1 year ago
+how to search any element in the file using gui
+
+0
+ Reply
+Sailendra Narayan Jena
+Sailendra Narayan Jena
+1 year ago
+Hi MK,
+I have one query related this Java Swing.
+I want to edit my local directory while running Java Swing application. Details is i have a folder tree structure in my application where i am trying to edit these folder or rename this folder in UI as well as backend also. So Can you please help me on this issue.
+
+When i check my code that time its calling this rename method but its returning me false.
+
+I have a FileUtils class where i have created a method for this rename() which is also calling this method but returning false.
+
+Please help me this issue.
+
+Thanks & Regards
+Sailendra Narayan Jena
+
+0
+ Reply
+Abdoulrachid
+Abdoulrachid
+1 year ago
+Thanks so much! It’s very helpful.
+
+0
+ Reply
+Jair
+Jair
+1 year ago
+Finally some quality content!
+Thank you Marilena.
+
+0
+ Reply
+Deepak
+Deepak
+1 year ago
+How to display last access directory in dialog box?
+
+0
+ Reply
+Fábio Baziota
+Fábio Baziota
+1 year ago
+Thanks for this tut, perfect…
+
+0
+ Reply
+Francis Gagnon
+Francis Gagnon
+2 years ago
+thx i was refreshing my java Filechooser
+
+0
+ Reply
+Rubina
+Rubina
+2 years ago
+Application hangs while using on mac OSX
+
+0
+ Reply
+asdgfadf
+asdgfadf
+11 months ago
+Reply to  Rubina
+…
+
+0
+ Reply
+Tanvir
+Tanvir
+2 years ago
+Does not seem to work on Oxygen 2.0. Is there anything that should be done differently?
+
+0
+ Reply
+ziad El Khomssi
+ziad El Khomssi
+2 years ago
+arigato gosaimasu <3
+
+0
+ Reply
+About Mkyong.com
+Mkyong.com is providing Java and Spring tutorials and code snippets since 2008. All published articles are simple and easy to understand and well tested in our development environment.
+
+Source code in Mkyong.com is licensed under the MIT License, read this Code License.
+
+Bookmarks
+OpenJDK
+Oracle JDK
+AdoptOpenJDK
+Oracle Java Tutorials
+Spring Home
+Docker Home
+Android Developer
+Kotlin
+Maven
+Gradle
+Follow
+Martin Fowler
+Java Code Geeks
+JournalDev
+© 2008-2021 Mkyong.com | Privacy Policy

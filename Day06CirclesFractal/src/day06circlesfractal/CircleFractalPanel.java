@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package day06trianglefractaleasier;
+package day06circlesfractal;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,16 +12,15 @@ import java.awt.Graphics2D;
  *
  * @author phili
  */
-public class TriangleFractalEasierPanel extends javax.swing.JPanel {
+public class CircleFractalPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form TriangleFractalEasierPanel
+     * Creates new form CircleFractalPanel
      */
-    public TriangleFractalEasierPanel() {
-        //initComponents();
+    public CircleFractalPanel() {
+        // initComponents();
     }
 
- 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -29,46 +28,24 @@ public class TriangleFractalEasierPanel extends javax.swing.JPanel {
         //get shorter length in getWidth() and getHeight(), use it as the baseline to make sure the triangle is always equilateral
         int baseline = getWidth() <= getHeight() ? getWidth() : getHeight();
         baseline = baseline - 10;//set 10 padding
-        int height = (int) Math.sqrt(Math.pow(baseline, 2) - Math.pow(baseline * 50 / 100, 2));
 
-        int x1 = baseline * 50 / 100 + 5;//left padding = 5;
-        int y1 = 5;//to padding = 6;
-        int x2 = 5;
-        int y2 = height + 5;
-        int x3 = baseline + 5;
-        int y3 = height + 5;
+        int x1 = 5;
+        int y1 = 5 + baseline * 50 / 100;
+        int x2 = 5 + baseline;
+        int y2 = 5 + baseline * 50 / 100;
+//        int x3 = 5 +  baseline * 50 / 100;
+//        int y3 = 5 +  baseline * 50 / 100;
+//        int x4 = 5 +  baseline;
+//        int y4 = 5 + baseline * 50 / 100;
 
-        g2d.drawLine(x1, y1, x2, y2);
-        g2d.drawLine(x1, y1, x3, y3);
-        g2d.drawLine(x2, y2, x3, y3);
 
-        drawFractal(g2d,  x1,  y1,  x2,  y2,  x3,  y3);
-        
-        System.out.println("Triangle edge: " + baseline);
-        System.out.println("Triangle height:" + height);
+        g2d.drawOval(10,100,1000,500);
 
-    }
-
-    private void drawFractal(Graphics2D g2d, int x1, int y1, int x2, int y2, int x3, int y3) {
-        //1. Set end recursion condition
-        double edge = Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
-        if (edge < 6) return;
-        
-        //2. draws the 3 lines
-        int AX = (x2 + x3) / 2;
-        int AY = (y2 + y3) / 2;
-        int BX = (x1 + x3) / 2;
-        int BY = (y1 + y3) / 2;
-        int CX = (x1 + x2) / 2;
-        int CY = (y1 + y3) / 2;
-
-        g2d.drawLine(AX, AY, BX, BY);
-        g2d.drawLine(AX, AY, CX, CY);
-        g2d.drawLine(CX, CY, BX, BY);
-
-        //3. recursive calls,
-        drawFractal(g2d,  AX,  AY,  BX,  BY,  CX,  CY);
-        
+//        g2d.drawLine(x1, y1, x2, y2);
+//        drawFractal(g2d,  x1,  y1,  x2,  y2,  x3,  y3);
+//        
+//        System.out.println("Triangle edge: " + baseline);
+//        System.out.println("Triangle height:" + height);
     }
 
     /**

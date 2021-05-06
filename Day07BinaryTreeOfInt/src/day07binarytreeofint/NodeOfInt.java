@@ -11,10 +11,12 @@ package day07binarytreeofint;
  */
 public class NodeOfInt {
 
-    int value; // could also be key,value pair
+    int key;
+    int value;
     NodeOfInt left, right;
 
-    public NodeOfInt(int value) {
+    public NodeOfInt(int key, int value) {
+        this.key = key;
         this.value = value;
     }
 
@@ -81,21 +83,21 @@ public class NodeOfInt {
         return result;
     }
 
-    public void put(int value) {
+    public void put(int key, int value) {
         if (this.value == value) {
             throw new IllegalArgumentException("Value already exists");
         }
         if (this.value < value) {
             if (this.right == null) {
-                this.right = new NodeOfInt(value);
+                this.right = new NodeOfInt(key, value);                
             } else {
-                this.right.put(value);
+                this.right.put(key, value);
             }
         } else {
             if (this.left == null) {
-                this.left = new NodeOfInt(value);
+                this.left = new NodeOfInt(key, value);
             } else {
-                this.left.put(value);
+                this.left.put(key, value);
             }
         }
     }

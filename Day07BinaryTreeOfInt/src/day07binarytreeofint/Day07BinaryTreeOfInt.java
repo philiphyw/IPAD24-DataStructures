@@ -6,6 +6,7 @@
 package day07binarytreeofint;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  *
@@ -64,12 +65,26 @@ public class Day07BinaryTreeOfInt {
         System.out.println(bt.getRoot().left.left.value);
         System.out.println(bt.getRoot().left.left.left.value);
         System.out.println("Get all values in an array from largest to smallest");
-        
+
         int[] valueArr = bt.getValuesInOrder();
         for (int i = 0; i < valueArr.length; i++) {
-            System.out.print(valueArr[i]+" ");
+            System.out.print(valueArr[i] + " ");
         }
         System.out.println("");
+
+        System.out.println("Use for(Integer i:bt) to loop through integer value in nodes of the binary tree");
+        for (Integer i : bt) {
+            System.out.print(i + " ");
+        }
+        System.out.println("");
+        
+          System.out.println("Use integer i.hasNext() to find the last integer value in nodes of the binary tree");
+       Iterator<Integer> iterator = bt.iterator();
+       int lastValue=0;
+       while(iterator.hasNext()){
+           lastValue = iterator.next();
+       }
+        System.out.println("The last value in the interator is " + lastValue);
     }
 
 }

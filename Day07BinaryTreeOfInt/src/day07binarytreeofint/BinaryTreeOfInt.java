@@ -6,28 +6,19 @@
 package day07binarytreeofint;
 
 //
-//	
-//	// uses recursion to collect all values from largest to smallest
-//	int [] getValuesInOrder() { // from largest to smallest
-//        resultArray = new int[nodesCount];
-//		...
-//	}
-//	
-//	// private helper recursive method to implement the above method
-//	private void collectValuesInOrder(NodeOfInt node) {
-//    }
-//	// data structures used to make collecting values in order easier
-//    private int[] resultArray;
-//    private int resultIndex;
-/**
- *
- * @author phili
- */
-public class BinaryTreeOfInt {
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+
+public class BinaryTreeOfInt implements Iterable<Integer> {
 
     private NodeOfInt root;
     private int nodesCount;
-
+    //to implement Iterable, need to build this List and reference its iterator method
+    private final List<Integer> vList = new ArrayList<Integer>();
+    
     public NodeOfInt getRoot() {
         return root;
     }
@@ -38,10 +29,6 @@ public class BinaryTreeOfInt {
 
     public int getNodesCount() {
         return nodesCount;
-    }
-
-    public void setNodesCount(int nodesCount) {
-        this.nodesCount = nodesCount;
     }
 
     // uses compute the sum of all values in the entire tree using the recursive method below
@@ -67,12 +54,17 @@ public class BinaryTreeOfInt {
 
     // throws exception if put attempts to insert value that already exists (a duplicate)
     void put(int value) throws IllegalArgumentException {
-
-        if (this.root != null) {
-            this.root.put(value);
-        } else {
-            this.root = new NodeOfInt(value);
+        int key=0;
+        if (this.nodesCount>0) {
+            key=this.nodesCount-1;
         }
+        
+        if (this.root != null) {
+            this.root.put(key, value);
+        } else {
+            this.root = new NodeOfInt(key, value);
+        }
+        vList.add(value);
         this.nodesCount += 1;
     }
 
@@ -83,4 +75,13 @@ public class BinaryTreeOfInt {
         }
         return this.root.getValueArray();
             }
+
+    @Override
+    public Iterator<Integer> iterator() {
+        return vList.iterator();
+    }
+
+   
+    
+    
 }

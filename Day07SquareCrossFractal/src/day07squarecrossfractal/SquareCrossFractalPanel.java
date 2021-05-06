@@ -3,26 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package day07crossfractal;
+package day07squarecrossfractal;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 /**
  *
  * @author phili
  */
-public class CrossFractalPanel extends javax.swing.JPanel {
+public class SquareCrossFractalPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form CrossFractalPanel
+     * Creates new form SquareCrossFractalPanel
      */
-    public CrossFractalPanel() {
-        // initComponents();
+    public SquareCrossFractalPanel() {
+        //initComponents();
     }
 
-    @Override
+     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
@@ -32,10 +33,10 @@ public class CrossFractalPanel extends javax.swing.JPanel {
         int pd = 5;
         Point A = new Point(pd,pd);
         Point B = new Point (pd+bl,pd);
-        drawFractal(g2d, A, B,0);
+        drawFractal(g2d, A, B,0,0);
     }
 
-    private void drawFractal(Graphics2D g2d, Point a, Point b,int level) {
+    private void drawFractal(Graphics2D g2d, Point a, Point b,int level, double roateAngel) {
         //1. Set end recursion condition
         int bl = Math.abs(a.x - b.x);
         if (level> 4) {
@@ -50,52 +51,53 @@ public class CrossFractalPanel extends javax.swing.JPanel {
         Point pB0 = new Point(a.x, a.y + bl);//first point at the bottom left conner; 
 
         //set the  top horizental points 
-        Point pT1 = new Point(a.x + bl * 1 / 4, a.y);
-        Point pT2 = new Point(a.x + bl * 2 / 4, a.y);
-        Point pT3 = new Point(a.x + bl * 3 / 4, a.y);
-        Point pT4 = new Point(a.x + bl, a.y);
+        Point pT1 = new Point(a.x + bl * 1 / 3, a.y);
+        Point pT2 = new Point(a.x + bl * 2 / 3, a.y);
+        Point pT3 = new Point(a.x + bl, a.y);
+       
 
         //set the  bottom horizental points 
-        Point pB1 = new Point(a.x + bl * 1 / 4, a.y + bl);
-        Point pB2 = new Point(a.x + bl * 2 / 4, a.y + bl);
-        Point pB3 = new Point(a.x + bl * 3 / 4, a.y + bl);
-        Point pB4 = new Point(a.x + bl, a.y + bl);
+        Point pB1 = new Point(a.x + bl * 1 /3, a.y + bl);
+        Point pB2 = new Point(a.x + bl * 2 /3, a.y + bl);
+        Point pB3 = new Point(a.x + bl, a.y + bl);
+
 
         //set the left vertical point
-        Point pL1 = new Point(a.x, a.y + bl * 1 / 4);
-        Point pL2 = new Point(a.x, a.y + bl * 2 / 4);
-        Point pL3 = new Point(a.x, a.y + bl * 3 / 4);
+        Point pL1 = new Point(a.x, a.y + bl * 1 / 3);
+        Point pL2 = new Point(a.x, a.y + bl * 2 / 3);
 
         //set the right vertical point
-        Point pR1 = new Point(a.x + bl, a.y + bl * 1 / 4);
-        Point pR2 = new Point(a.x + bl, a.y + bl * 2 / 4);
-        Point pR3 = new Point(a.x + bl, a.y + bl * 3 / 4);
+        Point pR1 = new Point(a.x + bl, a.y + bl * 1 / 3);
+        Point pR2 = new Point(a.x + bl, a.y + bl * 2 / 3);
 
 
-//        //set the 4 points at the middle 
-        Point pM1 = new Point(a.x + bl * 1 / 4, a.y + bl * 1 / 4);
-        Point pM2 = new Point(a.x + bl * 3 / 4, a.y + bl * 1 / 4);
-        Point pM3 = new Point(a.x + bl * 1 / 4, a.y + bl * 3 / 4);
-        Point pM4 = new Point(a.x + bl * 3 / 4, a.y + bl * 3 / 4);
+
 
         //draw the outside box
-        g2d.drawLine(pT0.x, pT0.y, pT4.x, pT4.y);
-        g2d.drawLine(pT4.x, pT4.y, pB4.x, pB4.y);
+        g2d.drawLine(pT0.x, pT0.y, pT3.x, pT3.y);
+        g2d.drawLine(pT3.x, pT3.y, pB3.x, pB3.y);
         g2d.drawLine(pT0.x, pT0.y, pB0.x, pB0.y);
-        g2d.drawLine(pB0.x, pB0.y, pB4.x, pB4.y);
+        g2d.drawLine(pB0.x, pB0.y, pB3.x, pB3.y);
 
-        //draw the diament at the center
-         g2d.drawLine(pT2.x, pT2.y, pL2.x, pL2.y);
-        g2d.drawLine(pL2.x, pL2.y, pB2.x, pB2.y);
-        g2d.drawLine(pT2.x, pT2.y, pR2.x, pR2.y);
-        g2d.drawLine(pR2.x, pR2.y, pB2.x, pB2.y);
+        //draw the 4 cirscle at the cornors
+        int diameter = (int)Math.sqrt(Math.pow(bl*1/3,2)/2);
+        g2d.drawOval(pT0.x,pT0.y,diameter,diameter);
+        g2d.drawOval(pB0.x,pB0.y - diameter,diameter,diameter);
+        g2d.drawOval(pT3.x - diameter,pT3.y ,diameter,diameter);
+        g2d.drawOval(pB3.x - diameter,pB3.y - diameter,diameter,diameter);
+        
+        
+//        Point centerPoint = new Point(bl*1/2,bl*1/2);
+        g2d.rotate(Math.toRadians(45),bl ,bl );
 
         //3. recursive calls,
-        level+=1;
-        drawFractal(g2d, pT0, pT1,level);
-        drawFractal(g2d, pT3, pT4,level);
-        drawFractal(g2d, pL3, pM3,level);
-        drawFractal(g2d, pM4, pR3,level);
+//        level+=1;
+//        roateAngel-=30.0;
+//        int newX = (int)Math.sqrt(Math.pow(bl*1/3, 2)+ Math.pow(bl*2/3, 2));
+//        Point pTNew = new Point(newX,pL1.y);
+//         drawFractal(g2d, pL1, pTNew,level,roateAngel);
+
+    
     }
 
     private class Point {
@@ -121,6 +123,13 @@ public class CrossFractalPanel extends javax.swing.JPanel {
         new Color(131, 121, 11)
     };
     
+    
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
